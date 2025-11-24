@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Final Chapter | Class of 2025</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 1. PREMIUM CSS DESIGN --- */
+        :root {
+            --gold: #d4af37;
+            --dark: #0a0a0a;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--dark);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* --- LOCK SCREEN (Cinematic) --- */
+        #lock-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1519750157634-b6d493a0f77c?q=80&w=2070');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .lock-content {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
+        }
+
+        .lock-title { font-size: 3rem; color: var(--gold); letter-spacing: 2px; margin-bottom: 10px; }
+        .lock-subtitle { text-transform: uppercase; letter-spacing: 5px; font-size: 0.9rem; color: #aaa; margin-bottom: 30px; }
+
+        input[type="password"] {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #555;
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 10px;
+            outline: none;
+            transition: 0.3s;
+            width: 200px;
+            letter-spacing: 5px;
+        }
+
+        input[type="password"]:focus { border-color: var(--gold); }
+
+        .enter-btn {
+            display: block;
+            margin: 30px auto 0;
+            padding: 12px 40px;
+            background: var(--gold);
+            color: black;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .enter-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--gold); }
+
+        /* --- MAIN CONTENT --- */
+        #main-content { display: none; opacity: 0; transition: opacity 1.5s ease; }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+        }
+
+        .hero h1 {
+            font-size: 5vw;
+            background: linear-gradient(to right, #fff, #d4af37, #fff);
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer { 0% {background-position: -100%;} 100% {background-position: 200%;} }
+
+        .hero p { font-size: 1.2rem; max-width: 600px; color: #ccc; margin-top: 20px; line-height: 1.6; }
+
+        /* Gallery Section */
+        .section-title { text-align: center; font-size: 2.5rem; color: var(--gold); margin: 80px 0 40px; }
+        
+        .gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 15px 15px 50px 15px;
+            width: 280px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.4s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .polaroid img { width: 100%; height: 250px; object-fit: cover; filter: sepia(20%); }
+        .polaroid p { 
+            color: #333; 
+            font-family: 'Nothing You Could Do', cursive; /* Fallback font */
+            font-weight: bold; 
+            position: absolute; 
+            bottom: 15px; 
+            left: 0; 
+            width: 100%; 
+            text-align: center; 
+            font-size: 1.2rem;
+        }
+
+        .polaroid:hover { transform: scale(1.1) rotate(0deg) !important; z-index: 10; box-shadow: 0 0 25px var(--gold); }
+        .polaroid:nth-child(odd) { transform: rotate(-3deg); }
+        .polaroid:nth-child(even) { transform: rotate(3deg); }
+
+        /* Interactive Titles */
+        .titles-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto 100px;
+        }
+
+        .reveal-card {
+            background: var(--glass);
+            border: 1px solid #333;
+            padding: 30px;
+            width: 250px;
+            text-align: center;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reveal-card h3 { color: #fff; font-size: 1.2rem; }
+        .reveal-card .hidden-name {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--gold);
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .reveal-card:hover { border-color: var(--gold); }
+        .reveal-card:hover .hidden-name { transform: translateY(0); }
+
+        footer { text-align: center; padding: 50px; color: #555; border-top: 1px solid #222; }
+
+    </style>
+</head>
+<body>
+
+    <div id="lock-screen">
+        <div class="lock-content">
+            <div class="lock-title">Class of 2025</div>
+            <div class="lock-subtitle">Restricted Access</div>
+            <input type="password" id="passwordInput" placeholder="CODE">
+            <button class="enter-btn" onclick="unlockSite()">Enter</button>
+            <p id="error-msg" style="color: #ff4444; margin-top: 15px; display: none; font-size: 0.9rem;">Access Denied</p>
+        </div>
+    </div>
+
+    <div id="main-content">
+        
+        <div class="hero">
+            <h1>Farewell Seniors</h1>
+            <p>Some people come into our lives and leave footprints on our hearts.<br>Thank you for the memories.</p>
+        </div>
+
+        <h2 class="section-title">Captured Moments</h2>
+        <div class="gallery-grid">
+            <div class="polaroid">
+                <img src="images/img1.jpg" alt="Memory">
+            </div>
+            <div class="polaroid">
+                <img src="images/img2.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img3.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img4.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img5.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img6.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img7.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img8.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img9.jpg" alt="Memory">
+               
+            </div>
+            <div class="polaroid">
+                <img src="images/img10.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img11.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img12.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img13.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img15.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img14.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img16.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img17.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img18.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img19.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img19.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img20.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img21.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img22.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img23.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img24.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img25.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img26.jpg" alt="Memory">
+               
+            </div>
+            <div class="polaroid">
+                <img src="images/img27.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img28.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img29.jpg" alt="Memory">
+                
+            </div>
+            <div class="polaroid">
+                <img src="images/img30.jpg" alt="Memory">
+                
+            </div>
+        </div>
+
+        <h2 class="section-title">The Hall of Fame</h2>
+        <p style="text-align: center; margin-bottom: 30px; color: #666;">Hover cards to reveal the winner</p>
+        
+        <div class="titles-container">
+            <div class="reveal-card">
+                <h3>Happy Heart</h3>
+                <div class="hidden-name">Adhiraj Singh!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Joyful Groove Maker</h3>
+                <div class="hidden-name">Aditya!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Handsome Humble</h3>
+                <div class="hidden-name">Aditya Tripathi!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Mrs. Sunshine</h3>
+                <div class="hidden-name">Adrija Majumder!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Innocent Smile Icon</h3>
+                <div class="hidden-name">Alex Mangsatbam!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Pure Soul</h3>
+                <div class="hidden-name">Arnab Sinha!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Tech Wizard</h3>
+                <div class="hidden-name">Ayushmaan Datta!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Rising star</h3>
+                <div class="hidden-name">CH Sankar Mahadev!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Bright Eyed</h3>
+                <div class="hidden-name">Deepika!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Chirpy Hardworking Dynamo</h3>
+                <div class="hidden-name">Dolly Kumari!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Knows All</h3>
+                <div class="hidden-name">Jitesh Pal!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Mr. Perfect Champion</h3>
+                <div class="hidden-name">Kaushik Kumar Mallick!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Allice In Wonderland</h3>
+                <div class="hidden-name">Laya Botta!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Cheerful Friend Maker</h3>
+                <div class="hidden-name">P L N Bharat Chandra!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Silver Tounged Star</h3>
+                <div class="hidden-name">Pamula Lakshmi Prasanna!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Graceful Speaker</h3>
+                <div class="hidden-name">Parvatam Moukthika!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Fashionable Rythm Princess</h3>
+                <div class="hidden-name">Pragati Singh!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Goal Champion</h3>
+                <div class="hidden-name">Prayagraj Dakua!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Innocent Smiling Angel</h3>
+                <div class="hidden-name">Priyani Tyagi!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Bubbly Performer</h3>
+                <div class="hidden-name">Priyanshi Pandey!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Intellectual Achiever</h3>
+                <div class="hidden-name">R Vishali!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Silent SweetHeart</h3>
+                <div class="hidden-name">Ratikanta Swain!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Soft spoken graceful star</h3>
+                <div class="hidden-name">Saina Saimon!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Graceful Biblophile</h3>
+                <div class="hidden-name">Sanjana Sahu!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Intelligent Charmer</h3>
+                <div class="hidden-name">Sarvoch Udeck!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Warm Hearted Buddy</h3>
+                <div class="hidden-name">Satya Narayan Baral!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>The Lyric Queen</h3>
+                <div class="hidden-name">Sayesha Pasrija!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Playful Thinker</h3>
+                <div class="hidden-name">Shobit Singh!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Diligent Academic Performer</h3>
+                <div class="hidden-name">Sumeet Kumar!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Sunshine Conversationalist</h3>
+                <div class="hidden-name">V Nithish Kumar!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Dancing Diva of Elegance</h3>
+                <div class="hidden-name">V Vaishnavi!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Beauty with Brain</h3>
+                <div class="hidden-name">Yashvi Grewal!</div>
+            </div>
+            <div class="reveal-card">
+                <h3>Sweetheart</h3>
+                <div class="hidden-name">Sonakshi!</div>
+            </div>
+            
+        </div>
+
+        <footer>
+            <p>Crafted with respect & love by Class 11</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function unlockSite() {
+            // --- PASSWORD CONFIGURATION ---
+            const correctPass = "PCM"; // Change this to your desired password
+            // -----------------------------
+
+            const input = document.getElementById('passwordInput');
+            const lockScreen = document.getElementById('lock-screen');
+            const mainContent = document.getElementById('main-content');
+            const errorMsg = document.getElementById('error-msg');
+
+            if (input.value === correctPass) {
+                // Success Animation
+                lockScreen.style.transform = "translateY(-100%)";
+                setTimeout(() => {
+                    mainContent.style.display = "block";
+                    // Slight delay to trigger fade in
+                    setTimeout(() => { mainContent.style.opacity = "1"; }, 50);
+                }, 500);
+            } else {
+                // Error Animation
+                errorMsg.style.display = "block";
+                input.style.borderBottom = "2px solid #ff4444";
+                input.classList.add('shake');
+                setTimeout(() => { input.style.borderBottom = "2px solid #555"; }, 1000);
+            }
+        }
+
+        // Enter key support
+        document.getElementById("passwordInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                unlockSite();
+            }
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
+
